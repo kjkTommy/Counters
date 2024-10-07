@@ -1,50 +1,34 @@
-# React + TypeScript + Vite
+# Проект: Таблица Счетчиков Воды
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Этот проект представляет собой веб-интерфейс для отображения и управления списком счетчиков воды с использованием **React** и **MobX**. Данные о счетчиках и их адресах загружаются с внешнего API. Пользователь может просматривать список счетчиков, удалять их и переходить по страницам с помощью пагинации.
 
-Currently, two official plugins are available:
+## Функционал
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Отображение списка счетчиков воды.
+- Удаление счетчиков.
+- Пагинация данных.
+- Асинхронная загрузка данных о счетчиках и адресах.
+- Управление состоянием с помощью MobX.
+- Динамическое выделение строки при наведении курсора.
+- Значок удаления меняет цвет на красный при наведении.
 
-## Expanding the ESLint configuration
+## Используемые библиотеки
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: Основной фреймворк для разработки пользовательского интерфейса.
+- **MobX**: Используется для управления состоянием приложения.
+- **MobX-react**: Интеграция MobX с React для автоматической подписки на изменения состояния.
+- **Material-UI (MUI)**: Библиотека компонентов для стилизации интерфейса (таблицы, кнопки, пагинация и другие элементы).
+- **Axios**: Для отправки HTTP-запросов к API.
+- **TypeScript**: Для статической типизации, улучшения разработки и предотвращения ошибок.
 
-- Configure the top-level `parserOptions` property like this:
+## Структура проекта
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **store/CounterStore.ts**: Основной MobX-стор, содержащий логику работы с API, список счетчиков и данные для пагинации.
+- **components/CounterTable.tsx**: Компонент для отображения таблицы с данными о счетчиках.
+- **request/requestCounters.ts** и **request/requestAddress.ts**: Модули для взаимодействия с внешним API и получения данных о счетчиках и адресах.
+  
+## Проблемы и ограничения
+1. Получение данных о типе счётчика
+Тип счётчика, получаемый с API, возвращается в виде строки, например "ColdWaterAreaMeter" или "HotWaterAreaMeter". Хотя эти данные должны быть преобразованы в более понятные значения, такие как "ХВС" (холодная вода) и "ГВС" (горячая вода), на текущий момент корректная обработка этих данных не реализована. Вместо этого в таблице отображается "Неизвестно" для типа счётчика.
+2. Получение данных об адресах
+Основной проблемой является несоответствие ID областей в запросах для счётчиков и адресов. В API для счётчиков и адресов используются разные идентификаторы, что затрудняет корректное сопоставление и отображение адресов в таблице. В результате адреса в таблице могут отображаться некорректно или вовсе отсутствовать.
