@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://showroom.eis24.me/api/v4/test/meters/:meterId/';
+const url = 'https://showroom.eis24.me/api/v4/test/meters/:meterId/';
 
 export const fetchDelete = async (meterId: string): Promise<void> => {
   try {

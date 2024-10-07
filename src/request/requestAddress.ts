@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-const url = 'http://showroom.eis24.me/api/v4/test/areas/';
-
 const addressCache: { [key: string]: string } = {};
 
 export const fetchAddress = async (areaIds: string[]): Promise<{ [key: string]: string }> => {
@@ -16,7 +14,7 @@ export const fetchAddress = async (areaIds: string[]): Promise<{ [key: string]: 
     for (let i = 0; i < idsToFetch.length; i += batchSize) {
       const batchIds = idsToFetch.slice(i, i + batchSize).join(',');
 
-      const response = await axios.get(url, {
+      const response = await axios.get(`https://showroom.eis24.me/api/v4/test/areas/${areaIds}`, {
         headers: {
           'Content-Type': 'application/json',
         },
