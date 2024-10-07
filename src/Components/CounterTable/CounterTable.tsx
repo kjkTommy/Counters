@@ -52,7 +52,15 @@ const CounterTable: React.FC = observer(() => {
           </TableHead>
           <TableBody>
             {counterStore.counterList.map((counter, index) => (
-              <TableRow key={counter.id}>
+              <TableRow
+                key={counter.id}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                    cursor: 'pointer',
+                  },
+                }}
+              >
                 <TableCell>{(counterStore.currentPage - 1) * ITEMS_PER_PAGE + index + 1}</TableCell>
                 <TableCell>{'Неизвестно'}</TableCell>
                 <TableCell>{new Date(counter.installation_date).toLocaleDateString()}</TableCell>
